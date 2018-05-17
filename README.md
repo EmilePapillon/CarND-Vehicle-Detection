@@ -62,6 +62,16 @@ I tried various combinations of parameters and looked at the prediction efficien
 
 I trained a linear SVM using HOG features as well as color features and spatial bins. With HOG only I got to 0.96 accuracy, but when I added color features this went up to 0.98, which is why I decided to add the color histograms and spatial features. Training time is not a requirement here, just prediction rapidity, so we're not trying to optimize the training time. 
 
+The SVM classifier is created and fitted in cell 8 of the `Vehicle-Detection.ipynb` notebook : 
+
+```python
+X_scaler = StandardScaler().fit(X_train)
+clf = LinearSVC()
+clf.fit(normalized(X_train,X_scaler), y_train)
+```
+
+As can be seen in the code above, the training data is also scaled using a standard scaler. The function normalized is a simple wrapper I made to clearly identify normalization. 
+
 The following figure shows the resutlts for color features and spatial bins on a random test image from the training set :
 
 ![alt text][image3]
@@ -72,7 +82,7 @@ The following figure shows the resutlts for color features and spatial bins on a
 
 #### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
-Based on the reasonoing that closer to the horizon cars appear smaller, I decided do run various experiments with smaller scales around 400px (close to horizon) and larger scale as I defined higher velues for ystart and ystop horizontal bondariers (corresponding to positions LOWER in the images). I settled with the following 8 sets defined in cell /#8 of the .ipynb notebook: 
+Based on the reasonoing that closer to the horizon cars appear smaller, I decided do run various experiments with smaller scales around 400px (close to horizon) and larger scale as I defined higher velues for ystart and ystop horizontal bondariers (corresponding to positions LOWER in the images). I settled with the following 8 sets defined in cell /#12 of the .ipynb notebook: 
 
 ```python
 params= [{'ystart':400,'ystop':465, 'scale':1.0},
@@ -83,6 +93,8 @@ params= [{'ystart':400,'ystop':465, 'scale':1.0},
 {'ystart':400,'ystop':595, 'scale':3.5},
 {'ystart':465,'ystop':660, 'scale':3.5}]
 ```
+
+The implementation of the sliding window algorithm can be found in cell 9 of `Vehicle-Detection.ipynb`, in function `find_cars`,  where I took the advice from the class and created a version that calculates the HOG only once for the full search region.
 
 My current scale, pix_per_cell and cell_per_block settings makes it such that there is a 0.5 overlap between the windows of a same set, which yielded satisfactory results, so I chose to call it good and move on. 
 
