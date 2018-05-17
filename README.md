@@ -16,7 +16,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 [image1]: ./examples/car_not_car.png
-[image2]: ./examples/HOG_example.jpg
+[image2]: ./examples/HOG_example.png
 [image3]: ./examples/color_histograms.png
 [image4]: ./examples/spatial_bins.png
 [image5]: ./examples/heatmap.png
@@ -105,7 +105,7 @@ Here's a [link to my video result](./proj_video_out.mp4)
 
 I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  This was efficient but the result was very unstable so I decided to accumulate heat over a series of frame. After some trials and errors I figured 8 frames gave me a satisfactory result. 
 
-Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
+Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid one of the test images:
 
 ![alt text][image8]
 
@@ -113,9 +113,6 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 ![alt text][image6]
 
-## Resulting video :
-
-![alt text][video1]
 
 ---
 
