@@ -93,7 +93,7 @@ Ultimately I searched on two scales using YUV 3-channel HOG features plus spatia
 ![alt text][image7]
 
 At the beginning I was getting unstable bounding boxes. It was not satisfactory. So I quickly implemented a class to keep track of my rectangle and build heat maps over a set of 15 frames instead of using a single frame. It worked a lot better (see result video)
----
+
 
 ### Video Implementation
 
